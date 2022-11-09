@@ -1,61 +1,4 @@
-/* El método filter consiste en crear un nuevo array a partir de los elementos originales filtrados mediante una función (callback) que indica la condición a cumplir y es inmutable. Si la condición se cumple, retorna el elemento completo.
-
-Este proceso recibe dos argumentos:
-
-La función que itera y evalúa si cada elemento del array si cumple con la condición especificada (obligatorio).
-Un objeto al que puede hacer referencia el contexto this en la función. Si se lo omite, será undefined. Recuerde que this en arrow functions es el objeto global.
-*/
-
-let otherArray = array.filter(function(), thisArg)
-//La función, que recibe como argumento el método filter, utiliza tres parámetros:
-
-/* El valor actual del elemento iterado. Es decir, si es la primera iteración, será el primer elemento, y así sucesivamente.
-El índice del elemento iterado. Es decir, si es la primera iteración, será el índice 0, y así sucesivamente.
-El array que está iterando.
-*/
-
-const other = array.map(function(element, index, array))
-/* Diferencia entre la estructura for y el método filter
-Los métodos de arrays nos permiten realizar algoritmos con una menor cantidad de líneas que una estructura for, con un resultado igual o parecido.
-
-Por ejemplo, hagamos un algoritmo que filtre los elementos que tengan más de 6 letras en un array de palabras.
-
-Si empleamos la estructura for, necesitaremos un array adicional vacío y usarlo con el método push para agregar los elementos que cumplan la condición. El método push es mutable.
-
-*/
-const words = ["spray", "elites", "limit", "apple", "exuberant"]
-const newWords = []
-
-for(let i=0; i< words.length; i++){
-    const word = words[i]
-    if (word.length >= 6){
-        newWords.push(word)
-    }
-}
-
-console.log(newWords) // [ 'elites', 'exuberant' ]
-//Con el método filter, solo debemos establecer la función que indique la condición a cumplir para cada elemento.
-
-const words = ["spray", "elites", "limit", "apple", "exuberant"]
-
-const newWords = words.filter( function(word){
-    if (word.length >=6){
-      return true
-    }else{
-      return false
-    }
-})
-// o 
-const newWords = words.filter(word => word.length >= 6)
-
-console.log(newWords) // [ 'elites', 'exuberant' ]
-/*Recuerda siempre retornar un valor en la función callback del método.
-
-Filtrar elementos a partir de la propiedad de un objeto
-Con el método filter puedes filtrar los objetos de un array a partir de una condición referente a la propiedad de cada elemento.
-
-Teniendo en cuenta que el nuevo array contendrá el objeto completo que haya cumplido con la condición especificada.
-*/
+//Ahora que ya sabes cómo funciona el método map de arrays estudiemos diferentes situaciones que deberás manejar array de objetos como los siguientes datos de orders.
 
 const orders = [
   {
@@ -79,21 +22,36 @@ const orders = [
     delivered: true,
   },
 ]
-//Por ejemplo, filtremos los elementos del array orders cuyo total sea mayor a 150.
+//Extrayendo datos necesarios
+//De un conjunto de datos a veces necesitas ciertos atributos para realizar una operación, extraer los nombres o cuantificar un suceso. El método map te permite extraer estos datos según los puedas utilizar.
 
-const newOrders = orders.filter(order => order.total > 150)
+const totales = orders.map(order => order.total)
 
-console.log(newOrders) 
-/* [
-  {
-    customerName: 'Santiago',
-    total: 180,
-    delivered: true
-  },
-  {
-    customerName: 'Valentina',
-    total: 240,
-    delivered: true
-  }
-]
+console.log(totales) // [ 60, 120, 180, 240 ]
+/* Transformando objetos dentro de un array
+De un conjunto de datos, de los cuales son objetos, a veces requieres añadir una propiedad nueva o eliminar una que no es necesaria. Si necesitas transformar objetos dentro de un array, debes tener en cuenta que cada objeto tiene una referencia en memoria propia. Por lo que si transformas un objeto, también lo harás en el original como en el nuevo, aun cuando el método map es inmutable.
+
+Los parámetros por referencia los debes tener presente cuando manejes objetos y arrays.
+
+ Ejemplo donde transformas los objetos originales
 */
+
+const tarifas = orders.map(order => {
+    order.tax = 0.19
+    return order
+})
+
+tarifas[0] === orders[0] // true
+tarifas[1] === orders[1] // true
+Una forma de evitar este comportamiento, es crear un nuevo objeto con el spread operator (operador de propagación).
+
+// Ejemplo donde no transformas los objetos originales
+const tarifas = orders.map(order => {
+    return {
+        ...order,
+        item: 0.19,
+    }
+})
+
+tarifas[0] === orders[0] // false
+tarifas[1] === orders[1] // false
