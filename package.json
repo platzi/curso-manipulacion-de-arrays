@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scanTailwind": "npx tailwindcss -i ./src/css/config.css -o ./src/css/estilos.css --watch"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,8 @@
   "homepage": "https://github.com/platzi/curso-manipulacion-de-arrays#readme",
   "dependencies": {
     "http-server": "^0.12.3"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.3"
   }
 }
