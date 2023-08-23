@@ -41,7 +41,7 @@ const orders = [
 
 const withOrder = orders.filter((item) => item.delivered && item.total >= 100);
 
-console.log(withOrder);
+console.log('soy with order',withOrder);
 
 //hagamos un buscador con filter
 
