@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manejo de Arrays</title>
+    <link rel="stylesheet" href="../css/estilos.css" />
+  </head>
+  <body>
+    <h1 class="text-center font-bold text-green-800 text-3xl">
+      Tareas para hacer el dia de hoy
+    </h1>
+    <div
+      id="app"
+      class="flex flex-col items-center m-2 bg-slate-400 bg-auto bg-no-repeat bg-center rounded-lg w-full justify-center"
+    ></div>
+    <script>
+      const products = [
+        { tittle: "burger", price: 121 },
+        { title: "pizza", price: 150 },
+      ];
+
+      const node = [];
+      const task = [
+        { title: "hacer la bandera", clearTask: false },
+        { title: "bañar a jose", clearTask: true },
+        { title: "jose merendo", clearTask: true },
+        { title: "comprar pan", clearTask: true },
+      ];
+
+      const app = document.getElementById("app");
+      task.forEach((task) => {
+        app.innerHTML += `
+        <li> 
+          Nombre: ${task.title} ||  
+          clearTask: ${task.clearTask} - 
+          <input type="checkbox" ${task.clearTask ? "checked" : ""}/>
+        </li>`;
+      });
+    </script>
+  </body>
+</html>
